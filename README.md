@@ -16,8 +16,6 @@ Merging specified files
         merging target/pdf_sample_2.pdf :  433.994 kb
         merging target/pdf_sample_3.pdf :  54.836 kb
 exported result/combined_2018-04-10 11_24_13.pdf : 485.462 kb
-
-
 ```
 
 2. Merge all of the PDF Files inside specified directory by ommiting the file parameters
