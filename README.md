@@ -7,7 +7,7 @@ Simple script to merge several pdf files written in pure python
 python merge.py <pdf_directory> [first.pdf] [second.pdf] [third.pdf] ...
 ```
 
-1. Merge specified files by give it in the parameter
+1. Merge specified files by giving it as the parameter
 ```
 >>> python merge.py target pdf_sample_1.pdf pdf_sample_2.pdf pdf_sample_3.pdf
 - Python PDF Merger -
