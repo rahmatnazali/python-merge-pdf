@@ -2,51 +2,51 @@ import PyPDF2
 import datetime, time, os
 
 class PDFMerger():
-
     def __init__(self):
         self.pdfWriter = PyPDF2.PdfFileWriter()
         self.pdfInputPointers = []
+        self.totalByteMerged = 0
 
-    def generateFileName(self):
+    def generateFileName(self, export_directory = ''):
         timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H_%M_%S')
-        return 'result/combined_' + timestamp + '.pdf'
+        if export_directory != '':
+            return export_directory + '/' + 'combined_' + timestamp + '.pdf'
+        else:
+            return 'result/combined_' + timestamp + '.pdf'
 
     def mergePDF(self, fileList):
-        # todo: add exception if file not exist
 
-        # open all PDF files
-        for file in fileList:
-            self.pdfInputPointers.append(open(file, 'rb'))
-            print('\tmerging', file, ': ', os.stat(file).st_size/1000, 'kb')
+        try:
+            # open all PDF files
+            for file in fileList:
+                if os.path.isfile(file):
+                    self.pdfInputPointers.append(open(file, 'rb'))
+                    print('\tmerging', file, ': ', os.stat(file).st_size/1000, 'kb')
+                    self.totalByteMerged += os.stat(file).st_size
+                else:
+                    print('\t[Error]', file, 'did not exist and will be skipped')
 
-        # read all the data
-        for filePointer in self.pdfInputPointers:
-            pdfReader = PyPDF2.PdfFileReader(filePointer)
+            # read all the data
+            for filePointer in self.pdfInputPointers:
+                pdfReader = PyPDF2.PdfFileReader(filePointer)
 
-            for pageNumber in range(pdfReader.numPages):
-                pageObj = pdfReader.getPage(pageNumber)
-                self.pdfWriter.addPage(pageObj)
+                for pageNumber in range(pdfReader.numPages):
+                    pageObj = pdfReader.getPage(pageNumber)
+                    self.pdfWriter.addPage(pageObj)
 
-        # write to a new PDF File
-        outputFileName = self.generateFileName()
-        with open(outputFileName, 'wb') as pdfOutputFile:
-            self.pdfWriter.write(pdfOutputFile)
-            print('exported', outputFileName, ':', os.stat(outputFileName).st_size/1000, 'kb')
 
-        # close all file pointer
-        for filePointer in self.pdfInputPointers:
-            filePointer.close()
+            # write to a new PDF File
+            if self.totalByteMerged == 0:
+                print('No files merged.')
+            else:
+                outputFileName = self.generateFileName()
+                with open(outputFileName, 'wb') as pdfOutputFile:
+                    self.pdfWriter.write(pdfOutputFile)
+                print('exported', outputFileName, ':', os.stat(outputFileName).st_size/1000, 'kb')
 
-if __name__ == '__main__':
-    print('Python PDF Merger')
-    pdfMergerInstance = PDFMerger()
-    pdfMergerInstance.mergePDF([
-        'pdf-sample_1.pdf',
-        'pdf-sample_2.pdf',
-        'pdf-sample_3.pdf',
-        'scan0003.pdf',
-        'scan0004.pdf',
-        'scan0005.pdf',
-    ])
+            # close all file pointer
+            for filePointer in self.pdfInputPointers:
+                filePointer.close()
 
-    # workingCode()
+        except Exception as exception:
+            print(exception)
