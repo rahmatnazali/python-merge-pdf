@@ -39,7 +39,7 @@ exported result/combined_2018-04-10 11_01_19.pdf : 487.898 kb
 
 # Acknowledgements
 Source of the PDF example files:
-- [sample_pdf_1.pdf](www.africau.edu/images/default/sample.pdf)
-- [sample_pdf_2.pdf](www.pdf995.com/samples/pdf.pdf)
-- [sample_pdf_3.pdf](unec.edu.az/application/uploads/2014/12/pdf-sample.pdf)
-- [sample_pdf_4.pdf](gahp.net/wp-content/uploads/2017/09/sample.pdf)
+- [sample_pdf_1.pdf](http://www.africau.edu/images/default/sample.pdf)
+- [sample_pdf_2.pdf](http://www.pdf995.com/samples/pdf.pdf)
+- [sample_pdf_3.pdf](http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf)
+- [sample_pdf_4.pdf](http://gahp.net/wp-content/uploads/2017/09/sample.pdf)
