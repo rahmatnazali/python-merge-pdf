@@ -17,6 +17,14 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         printUsage()
+        print()
+
+        print('Merging all PDF files in directory target/.')
+        pdfFiles = ['target' + '/' + pdfFile for pdfFile in os.listdir('target') if pdfFile.endswith('.pdf')]
+        pdfMergerInstance = Core.PDFMerger()
+        pdfMergerInstance.mergePDF(pdfFiles)
+
+
     elif len(sys.argv) == 2:
         print('Merging all PDF files in the directory:', sys.argv[1] + '/')
         pdfFiles = [sys.argv[1] + '/' + pdfFile for pdfFile in os.listdir(sys.argv[1]) if pdfFile.endswith('.pdf')]
@@ -27,3 +35,8 @@ if __name__ == '__main__':
         pdfFiles = [sys.argv[1] + '/' + pdfFile for pdfFile in sys.argv[2:] if pdfFile.endswith('.pdf')]
         pdfMergerInstance = Core.PDFMerger()
         pdfMergerInstance.mergePDF(pdfFiles)
+
+
+    print()
+    print()
+    input('Selesai.')
